@@ -50,7 +50,13 @@ Ext.define('Users.view.main.MainView' ,{
 	    	    	  name: 'refresh store',
 	    	    	  text: 'refresh store',
 	    	    	  itemId: 'refreshButton'
-	    	      }
+	    	      },
+							{
+	    	    	  xtype: 'button',
+	    	    	  name: 'Post fake data',
+	    	    	  text: 'Post data',
+	    	    	  itemId: 'postFakeDataButton'
+	    	      },
 	    	      ] }]
 
 

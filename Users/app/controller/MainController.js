@@ -19,7 +19,8 @@ Ext.define('Users.controller.MainController', {
     refs: [
       { ref: 'editButton', selector: 'button#editButton'},
       { ref: 'addButton', selector: 'button#addButton' },
-      { ref: 'refreshButton', selector: 'button#refreshButton' }
+      { ref: 'refreshButton', selector: 'button#refreshButton' },
+      { ref: 'postFakeDataButton', selector: 'button#postFakeDataButton' }
     ],
 
     grid: undefined,
@@ -33,6 +34,7 @@ Ext.define('Users.controller.MainController', {
       this.getAddButton().on( 'click' , this.add, this );
       this.getEditButton().on( 'click' , this.edit, this );
       this.getRefreshButton().on( 'click' , this.refreshStore, this );
+      this.getPostFakeDataButton().on( 'click' , this.postFakeData, this );
     },
     add: function (button) {
       var controller = this.application.getController('Users.controller.FormController');
@@ -51,11 +53,30 @@ Ext.define('Users.controller.MainController', {
     },
     refreshStore: function(button) {
       var store = this.getStore( 'Users.store.UserStore' );
+      store.reload();
       //var new_data = store.getProxy().getReader().rawData.users;
-      store.proxy.url = 'foo';
-      store.read();
-      // console.log(new_data);
       //this.getView().query('grid')[0].reconfigure(store, new_data);
+    },
+    postFakeData: function(button) {
+      alert("data posted");
+      Ext.Ajax.request({
+        url : 'https://jsonplaceholder.typicode.com/posts',
+        method: 'POST',
+        // body: JSON.stringify({
+        //     title: 'foo',
+        //     body: 'bar',
+        //     userId: 1
+        //   }),
+        params: {
+            title: "Ayush",
+            body: 'bar',
+            userId: 123
+        },
+        success: function(response) {
+          Ext.Msg.alert("Success", 'yea');
+          },
+        failure: function(){console.log('failure');}
+        });
     },
 
     getSelectedRecord: function () {
